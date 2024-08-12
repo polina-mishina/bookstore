@@ -48,7 +48,7 @@ class BookControllerTests {
 
     private String userToken;
     private String adminToken;
-    private final String STATUS_PREFIX = "/book";
+    private final String BOOK_PREFIX = "/books";
     private String baseUrl;
 
 
@@ -72,7 +72,7 @@ class BookControllerTests {
         );
         HttpEntity<BookDTO> request = new HttpEntity<>(book, createHeaders(adminToken));
         ResponseEntity<Book> response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX, HttpMethod.POST, request, Book.class
+                baseUrl + BOOK_PREFIX, HttpMethod.POST, request, Book.class
         );
 
         assertEquals(200, response.getStatusCode().value());
@@ -81,7 +81,7 @@ class BookControllerTests {
 
         request = new HttpEntity<>(book, createHeaders(userToken));
         response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX, HttpMethod.POST, request, Book.class
+                baseUrl + BOOK_PREFIX, HttpMethod.POST, request, Book.class
         );
 
         assertEquals(403, response.getStatusCode().value());
@@ -93,7 +93,7 @@ class BookControllerTests {
 
         HttpEntity<String> request = new HttpEntity<>(createHeaders(adminToken));
         ResponseEntity<List> response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX, HttpMethod.GET, request, List.class
+                baseUrl + BOOK_PREFIX, HttpMethod.GET, request, List.class
         );
 
         assertEquals(200, response.getStatusCode().value());
@@ -102,7 +102,7 @@ class BookControllerTests {
 
         request = new HttpEntity<>(createHeaders(userToken));
         response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX, HttpMethod.GET, request, List.class
+                baseUrl + BOOK_PREFIX, HttpMethod.GET, request, List.class
         );
 
         assertEquals(200, response.getStatusCode().value());
@@ -117,7 +117,7 @@ class BookControllerTests {
         int targetBookId = 2;
         HttpEntity<String> request = new HttpEntity<>(createHeaders(adminToken));
         ResponseEntity<Book> response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX + "/" + targetBookId, HttpMethod.GET, request, Book.class
+                baseUrl + BOOK_PREFIX + "/" + targetBookId, HttpMethod.GET, request, Book.class
         );
 
         assertEquals(200, response.getStatusCode().value());
@@ -126,7 +126,7 @@ class BookControllerTests {
 
         request = new HttpEntity<>(createHeaders(userToken));
         response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX + "/" + targetBookId, HttpMethod.GET, request, Book.class
+                baseUrl + BOOK_PREFIX + "/" + targetBookId, HttpMethod.GET, request, Book.class
         );
 
         assertEquals(200, response.getStatusCode().value());
@@ -148,7 +148,7 @@ class BookControllerTests {
         );
         HttpEntity<BookDTO> request = new HttpEntity<>(newBook, createHeaders(adminToken));
         ResponseEntity<Book> response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX + "/" + targetBookId, HttpMethod.PUT, request, Book.class
+                baseUrl + BOOK_PREFIX + "/" + targetBookId, HttpMethod.PUT, request, Book.class
         );
 
         assertEquals(200, response.getStatusCode().value());
@@ -160,7 +160,7 @@ class BookControllerTests {
 
         request = new HttpEntity<>(createHeaders(userToken));
         response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX + "/" + targetBookId, HttpMethod.PUT, request, Book.class
+                baseUrl + BOOK_PREFIX + "/" + targetBookId, HttpMethod.PUT, request, Book.class
         );
 
         assertEquals(403, response.getStatusCode().value());
@@ -173,14 +173,14 @@ class BookControllerTests {
         int targetBookId = 2;
         HttpEntity<String> request = new HttpEntity<>(createHeaders(adminToken));
         ResponseEntity<Void> response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX + "/" + targetBookId, HttpMethod.DELETE, request, Void.class
+                baseUrl + BOOK_PREFIX + "/" + targetBookId, HttpMethod.DELETE, request, Void.class
         );
 
         assertEquals(200, response.getStatusCode().value());
 
         request = new HttpEntity<>(createHeaders(userToken));
         response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX + "/" + targetBookId, HttpMethod.DELETE, request, Void.class
+                baseUrl + BOOK_PREFIX + "/" + targetBookId, HttpMethod.DELETE, request, Void.class
         );
 
         assertEquals(403, response.getStatusCode().value());
@@ -216,7 +216,7 @@ class BookControllerTests {
         for (BookDTO author : books) {
             HttpEntity<BookDTO> request = new HttpEntity<>(author, createHeaders(adminToken));
             restTemplate.exchange(
-                    baseUrl + STATUS_PREFIX, HttpMethod.POST, request, Book.class
+                    baseUrl + BOOK_PREFIX, HttpMethod.POST, request, Book.class
             );
         }
     }

@@ -45,7 +45,7 @@ class AuthorControllerTests {
 
     private String userToken;
     private String adminToken;
-    private final String STATUS_PREFIX = "/author";
+    private final String AUTHOR_PREFIX = "/authors";
     private String baseUrl;
 
 
@@ -62,7 +62,7 @@ class AuthorControllerTests {
         CreateAuthorDTO author = new CreateAuthorDTO("Лев", "Толстой", "Николаевич");
         HttpEntity<CreateAuthorDTO> request = new HttpEntity<>(author, createHeaders(adminToken));
         ResponseEntity<Author> response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX, HttpMethod.POST, request, Author.class
+                baseUrl + AUTHOR_PREFIX, HttpMethod.POST, request, Author.class
         );
 
         assertEquals(200, response.getStatusCode().value());
@@ -71,7 +71,7 @@ class AuthorControllerTests {
 
         request = new HttpEntity<>(author, createHeaders(userToken));
         response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX, HttpMethod.POST, request, Author.class
+                baseUrl + AUTHOR_PREFIX, HttpMethod.POST, request, Author.class
         );
 
         assertEquals(403, response.getStatusCode().value());
@@ -83,7 +83,7 @@ class AuthorControllerTests {
 
         HttpEntity<String> request = new HttpEntity<>(createHeaders(adminToken));
         ResponseEntity<List> response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX, HttpMethod.GET, request, List.class
+                baseUrl + AUTHOR_PREFIX, HttpMethod.GET, request, List.class
         );
 
         assertEquals(200, response.getStatusCode().value());
@@ -92,7 +92,7 @@ class AuthorControllerTests {
 
         request = new HttpEntity<>(createHeaders(userToken));
         response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX, HttpMethod.GET, request, List.class
+                baseUrl + AUTHOR_PREFIX, HttpMethod.GET, request, List.class
         );
 
         assertEquals(403, response.getStatusCode().value());
@@ -105,7 +105,7 @@ class AuthorControllerTests {
         int targetAuthorId = 2;
         HttpEntity<String> request = new HttpEntity<>(createHeaders(adminToken));
         ResponseEntity<Author> response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX + "/" + targetAuthorId, HttpMethod.GET, request, Author.class
+                baseUrl + AUTHOR_PREFIX + "/" + targetAuthorId, HttpMethod.GET, request, Author.class
         );
 
         assertEquals(200, response.getStatusCode().value());
@@ -114,7 +114,7 @@ class AuthorControllerTests {
 
         request = new HttpEntity<>(createHeaders(userToken));
         response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX + "/" + targetAuthorId, HttpMethod.GET, request, Author.class
+                baseUrl + AUTHOR_PREFIX + "/" + targetAuthorId, HttpMethod.GET, request, Author.class
         );
 
         assertEquals(403, response.getStatusCode().value());
@@ -128,7 +128,7 @@ class AuthorControllerTests {
         CreateAuthorDTO newAuthor = new CreateAuthorDTO("Александр", "Куприн", "Иванович");
         HttpEntity<CreateAuthorDTO> request = new HttpEntity<>(newAuthor, createHeaders(adminToken));
         ResponseEntity<Author> response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX + "/" + targetAuthorId, HttpMethod.PUT, request, Author.class
+                baseUrl + AUTHOR_PREFIX + "/" + targetAuthorId, HttpMethod.PUT, request, Author.class
         );
 
         assertEquals(200, response.getStatusCode().value());
@@ -139,7 +139,7 @@ class AuthorControllerTests {
 
         request = new HttpEntity<>(createHeaders(userToken));
         response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX + "/" + targetAuthorId, HttpMethod.PUT, request, Author.class
+                baseUrl + AUTHOR_PREFIX + "/" + targetAuthorId, HttpMethod.PUT, request, Author.class
         );
 
         assertEquals(403, response.getStatusCode().value());
@@ -152,14 +152,14 @@ class AuthorControllerTests {
         int targetAuthorId = 2;
         HttpEntity<String> request = new HttpEntity<>(createHeaders(adminToken));
         ResponseEntity<Void> response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX + "/" + targetAuthorId, HttpMethod.DELETE, request, Void.class
+                baseUrl + AUTHOR_PREFIX + "/" + targetAuthorId, HttpMethod.DELETE, request, Void.class
         );
 
         assertEquals(200, response.getStatusCode().value());
 
         request = new HttpEntity<>(createHeaders(userToken));
         response = restTemplate.exchange(
-                baseUrl + STATUS_PREFIX + "/" + targetAuthorId, HttpMethod.DELETE, request, Void.class
+                baseUrl + AUTHOR_PREFIX + "/" + targetAuthorId, HttpMethod.DELETE, request, Void.class
         );
 
         assertEquals(403, response.getStatusCode().value());
@@ -173,7 +173,7 @@ class AuthorControllerTests {
         for (CreateAuthorDTO author : authors) {
             HttpEntity<CreateAuthorDTO> request = new HttpEntity<>(author, createHeaders(adminToken));
             restTemplate.exchange(
-                    baseUrl + STATUS_PREFIX, HttpMethod.POST, request, Author.class
+                    baseUrl + AUTHOR_PREFIX, HttpMethod.POST, request, Author.class
             );
         }
     }
